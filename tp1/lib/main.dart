@@ -1,4 +1,10 @@
+import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   runApp(const MyApp());
@@ -7,119 +13,218 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Clash of Clans Media',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 245, 235, 220),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  List<dynamic> _characters = [];
+  final List<String> _likedCharacters = [];
 
-  void _incrementCounter() {
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    loadCharacters();
+  }
+
+  Future<void> loadCharacters() async {
+    final String response =
+        await rootBundle.loadString('assets/coc_characters.json');
+    final data = json.decode(response);
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _characters = data['characters'];
     });
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text(
+          'Clash of Clans Media',
+          style: TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'RobotoSlab',
+            letterSpacing: 1.2,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 213, 154, 14),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: const [
+            Tab(icon: Icon(Icons.home), text: 'Troupes'),
+            Tab(icon: Icon(Icons.favorite), text: 'Caractères Likés'),
+            Tab(icon: Icon(Icons.info), text: 'À propos'),
+          ],
+        ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          _buildHomePage(),
+          _buildLikedPage(),
+          _buildAboutPage(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHomePage() {
+    if (_characters.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final families = _characters.map((c) => c['family']).toSet().toList();
+
+    return ListView(
+      children: families.map((family) {
+        final familyCharacters =
+            _characters.where((c) => c['family'] == family).toList();
+
+        return ExpansionTile(
+          title: Text(family,
+              style:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          children: familyCharacters
+              .map((character) => _buildCharacterCard(character))
+              .toList(),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildCharacterCard(dynamic character) {
+    final isLiked = _likedCharacters.contains(character['name']);
+
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/images/${character['image']}',
+              width: 100,
+              height: 100,
+              fit: BoxFit.fitWidth,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(character['name'],
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text('Santé : ${character['health']}'),
+                  Text(
+                      'Dégâts par seconde : ${character['damage_per_second']}'),
+                  Text('Temps de formation : ${character['training_time']}'),
+                  const SizedBox(height: 8),
+                  Text('Capacité spéciale : ${character['special_ability']}',
+                      style: const TextStyle(fontStyle: FontStyle.italic)),
+                  const SizedBox(height: 8),
+                  Text('Description : ${character['description']}',
+                      style: const TextStyle(fontSize: 12)),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                isLiked ? Icons.favorite : Icons.favorite_border,
+                color: isLiked ? Colors.red : null,
+              ),
+              onPressed: () {
+                setState(() {
+                  if (isLiked) {
+                    _likedCharacters.remove(character['name']);
+                  } else {
+                    _likedCharacters.add(character['name']);
+                  }
+                });
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget _buildLikedPage() {
+    final liked =
+        _characters.where((c) => _likedCharacters.contains(c['name'])).toList();
+
+    return liked.isEmpty
+        ? const Center(child: Text('Aucun caractère liké pour le moment.'))
+        : ListView(
+            children: liked.map((c) => _buildCharacterCard(c)).toList(),
+          );
+  }
+
+  Widget _buildAboutPage() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text(
+              'Cette application vous permet de découvrir les différentes troupes de Clash of Clans et de liker vos préférées !',
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            Text(
+              'À propos de Clash of Clans :',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Clash of Clans est un jeu de stratégie en ligne multijoueur où les joueurs construisent leur village, forment des armées et attaquent d’autres joueurs pour récolter des ressources. Développé par Supercell, le jeu combine des éléments de gestion et de combat.',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
+            Text('Descriptions des types de troupes :',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            Text('• Héros : Les héros sont les troupes les plus puissantes.'),
+            Text(
+                '• Troupes basiques : Les troupes de base utilisées pour les attaques courantes.'),
+            Text(
+                '• Troupes noires : Des troupes spéciales formées avec l’élixir noir.'),
+            Text(
+                '• Engins de siège : Permettent de transporter les troupes directement au cœur du village ennemi.'),
+          ],
+        ),
+      ),
     );
   }
 }
