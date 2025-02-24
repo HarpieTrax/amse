@@ -1,0 +1,286 @@
+{
+    "characters": [
+      {
+        "name": "Barbare",
+        "family": "Troupes basiques",
+        "health": 45,
+        "damage_per_second": 8,
+        "training_time": "20s",
+        "image": "barbare.png",
+        "special_ability": "Charge rapide qui permet de foncer vers l'ennemi.",
+        "description": "Le Barbare est une troupe de base, idéale pour attaquer rapidement des cibles faibles."
+      },
+      {
+        "name": "Archer",
+        "family": "Troupes basiques",
+        "health": 33,
+        "damage_per_second": 7,
+        "training_time": "25s",
+        "image": "archer.png",
+        "special_ability": "Attaque à distance pour éliminer les ennemis sans risque.",
+        "description": "L'archer est une unité à distance, idéale pour soutenir les troupes au sol."
+      },
+      {
+        "name": "Géant",
+        "family": "Troupes basiques",
+        "health": 300,
+        "damage_per_second": 15,
+        "training_time": "2m",
+        "image": "geant.png",
+        "special_ability": "Excellente résistance aux dégâts, mais lente.",
+        "description": "Le Géant est une unité très résistante, parfaite pour encaisser des attaques et protéger d'autres troupes."
+      },
+      {
+        "name": "Sorcier",
+        "family": "Troupes basiques",
+        "health": 75,
+        "damage_per_second": 50,
+        "training_time": "5m",
+        "image": "sorcier.png",
+        "special_ability": "Lance des boules de feu infligeant de lourds dégâts.",
+        "description": "Le Sorcier est une unité de soutien à distance, capable de détruire des groupes d'ennemis."
+      },
+      {
+        "name": "P.E.K.K.A",
+        "family": "Troupes basiques",
+        "health": 2800,
+        "damage_per_second": 240,
+        "training_time": "45m",
+        "image": "pekka.png",
+        "special_ability": "Inflige de lourds dégâts en mêlée, mais lent.",
+        "description": "Le P.E.K.K.A est une unité de destruction massive, idéale pour anéantir des bases solides."
+      },
+      {
+        "name": "Dragon",
+        "family": "Troupes basiques",
+        "health": 3200,
+        "damage_per_second": 210,
+        "training_time": "30m",
+        "image": "dragon.png",
+        "special_ability": "Attaque aérienne avec une portée élevée.",
+        "description": "Le Dragon est une unité aérienne puissante, capable de détruire des structures avec une grande portée."
+      },
+      {
+        "name": "Gobelin",
+        "family": "Troupes basiques",
+        "health": 50,
+        "damage_per_second": 10,
+        "training_time": "15s",
+        "image": "gobelin.png",
+        "special_ability": "Ramasse rapidement les ressources ennemies.",
+        "description": "Le Gobelin est une unité légère qui excelle dans le pillage des ressources ennemies."
+      },
+      {
+        "name": "Sapeur",
+        "family": "Troupes basiques",
+        "health": 200,
+        "damage_per_second": 20,
+        "training_time": "1m",
+        "image": "sapeur.png",
+        "special_ability": "Inflige des dégâts massifs aux murs ennemis.",
+        "description": "Le Sapeur est une troupe spécialisée dans la destruction des murs ennemis."
+      },
+      {
+        "name": "Ballon",
+        "family": "Troupes basiques",
+        "health": 500,
+        "damage_per_second": 75,
+        "training_time": "4m",
+        "image": "ballon.png",
+        "special_ability": "Lance des bombes explosives sur les structures ennemies.",
+        "description": "Le Ballon est une unité aérienne qui inflige de lourds dégâts aux bâtiments ennemis."
+      },
+      {
+        "name": "Mineur",
+        "family": "Troupes basiques",
+        "health": 800,
+        "damage_per_second": 80,
+        "training_time": "1m30s",
+        "image": "mineur.png",
+        "special_ability": "Peut se déplacer sous terre pour éviter les attaques.",
+        "description": "Le Mineur est une troupe furtive qui se déplace sous terre pour éviter les défenses ennemies."
+      },
+      {
+        "name": "Electro Dragon",
+        "family": "Troupes basiques",
+        "health": 3200,
+        "damage_per_second": 250,
+        "training_time": "30m",
+        "image": "electro_dragon.png",
+        "special_ability": "Projette une chaîne d'éclairs qui frappe plusieurs ennemis.",
+        "description": "L'Electro Dragon est une unité aérienne puissante, capable de frapper plusieurs cibles avec ses éclairs."
+      },
+      {
+        "name": "Yeti",
+        "family": "Troupes basiques",
+        "health": 1700,
+        "damage_per_second": 120,
+        "training_time": "3m",
+        "image": "yeti.png",
+        "special_ability": "Inflige des dégâts massifs aux ennemis à proximité et génère des petits Yetis.",
+        "description": "Le Yeti est une unité robuste qui peut infliger des dégâts et faire appel à ses petites créatures."
+      },
+      {
+        "name": "Gargouille",
+        "family": "Troupes noires",
+        "health": 120,
+        "damage_per_second": 35,
+        "training_time": "1m30s",
+        "image": "gargouille.png",
+        "special_ability": "Attaque aérienne et rapide.",
+        "description": "La Gargouille est une petite unité volante qui inflige des dégâts rapides aux ennemis."
+      },
+      {
+        "name": "Chevaucheur de cochon",
+        "family": "Troupes noires",
+        "health": 900,
+        "damage_per_second": 90,
+        "training_time": "2m",
+        "image": "chevaucheur_cochon.png",
+        "special_ability": "Charge vers les ennemis en ligne droite.",
+        "description": "Le Chevaucheur de Cochon est une troupe rapide qui fonce vers les ennemis et détruit tout sur son passage."
+      },
+      {
+        "name": "Valkyrie",
+        "family": "Troupes noires",
+        "health": 450,
+        "damage_per_second": 100,
+        "training_time": "3m",
+        "image": "valkyrie.png",
+        "special_ability": "Attaque en tourbillon pour infliger des dégâts à plusieurs ennemis.",
+        "description": "La Valkyrie est une unité de mêlée qui attaque en tourbillon, causant des dégâts à toutes les troupes ennemies autour d'elle."
+      },
+      {
+        "name": "Golem",
+        "family": "Troupes noires",
+        "health": 5000,
+        "damage_per_second": 120,
+        "training_time": "5m",
+        "image": "golem.png",
+        "special_ability": "Inflige des dégâts massifs et attire les attaques ennemies.",
+        "description": "Le Golem est une unité résistante qui attire l'attention des ennemis tout en infligeant des dégâts."
+      },
+      {
+        "name": "Molosse de lave",
+        "family": "Troupes noires",
+        "health": 6000,
+        "damage_per_second": 30,
+        "training_time": "30m",
+        "image": "molosse_lave.png",
+        "special_ability": "Explose en projetant des dégâts de lave autour.",
+        "description": "Le Molosse de Lave est une unité résistante qui explose au contact de l'ennemi, infligeant des dégâts importants."
+      },
+      {
+        "name": "Sorcière",
+        "family": "Troupes noires",
+        "health": 1000,
+        "damage_per_second": 40,
+        "training_time": "4m",
+        "image": "sorciere.png",
+        "special_ability": "Invoque des squelettes pour attaquer les ennemis.",
+        "description": "La Sorcière est une unité magique qui peut invoquer des squelettes pour combattre à ses côtés."
+      },
+      {
+        "name": "Bouliste",
+        "family": "Troupes noires",
+        "health": 350,
+        "damage_per_second": 60,
+        "training_time": "3m",
+        "image": "bouliste.png",
+        "special_ability": "Lance des boulets pour détruire les bâtiments ennemis à distance.",
+        "description": "Le Bouliste est une unité qui utilise des projectiles pour détruire les défenses ennemies à distance."
+      },
+      {
+        "name": "Roi des barbares",
+        "family": "Héros",
+        "health": 2300,
+        "damage_per_second": 150,
+        "training_time": "Aucun",
+        "image": "roi_barbare.png",
+        "special_ability": "Réduit les dégâts subis et améliore les troupes voisines.",
+        "description": "Le Roi des Barbares est un héros qui mène les troupes avec une force incroyable."
+      },
+      {
+        "name": "Reine des archers",
+        "family": "Héros",
+        "health": 1200,
+        "damage_per_second": 160,
+        "training_time": "Aucun",
+        "image": "reine_archers.png",
+        "special_ability": "Tire des flèches à longue portée pour attaquer de loin.",
+        "description": "La Reine des Archers est une héroïne agile et puissante, capable de détruire des ennemis à distance."
+      },
+      {
+        "name": "Gardien grand",
+        "family": "Héros",
+        "health": 1900,
+        "damage_per_second": 110,
+        "training_time": "Aucun",
+        "image": "gardien_grand.png",
+        "special_ability": "Régénère la vie des troupes proches.",
+        "description": "Le Gardien Grand protège ses alliés en régénérant leur vie pendant le combat."
+      },
+      {
+        "name": "Championne royale",
+        "family": "Héros",
+        "health": 3200,
+        "damage_per_second": 200,
+        "training_time": "Aucun",
+        "image": "championne_royale.png",
+        "special_ability": "Attaque avec des coups puissants et attire l'attention des ennemis.",
+        "description": "La Championne Royale est une héroïne combattante, capable de submerger les ennemis avec ses attaques dévastatrices."
+      },
+      {
+        "name": "Prince Gargouille",
+        "family": "Héros",
+        "health": 2500,
+        "damage_per_second": 180,
+        "training_time": "Aucun",
+        "image": "prince_gargouille.png",
+        "special_ability": "Charge avec une grande vitesse et inflige des dégâts puissants.",
+        "description": "Le Prince Gargouille est un héros de mêlée rapide, capable d'infliger de lourds dégâts grâce à sa vitesse."
+      },
+      
+      {
+        "name": "Machine de siège",
+        "family": "Engins de siège",
+        "health": 5000,
+        "damage_per_second": 50,
+        "training_time": "Aucun",
+        "image": "machine_siege.png",
+        "special_ability": "Inflige des dégâts à distance tout en détruisant les murs ennemis.",
+        "description": "La Machine de Siège est un engin qui permet de détruire les défenses ennemies à distance, ouvrant la voie aux troupes."
+      },
+      {
+        "name": "Brise-murs",
+        "family": "Engins de siège",
+        "health": 3000,
+        "damage_per_second": 20,
+        "training_time": "Aucun",
+        "image": "brise_murs.png",
+        "special_ability": "Inflige des dégâts massifs aux murs ennemis.",
+        "description": "Le Brise-Murs est un engin dédié à la destruction des murs, pour ouvrir un chemin pour les autres troupes."
+      },
+      {
+        "name": "Bélier de combat",
+        "family": "Engins de siège",
+        "health": 4000,
+        "damage_per_second": 35,
+        "training_time": "Aucun",
+        "image": "belier_combat.png",
+        "special_ability": "Fracture les murs et les portes, permettant aux troupes de pénétrer.",
+        "description": "Le Bélier de Combat est un engin utilisé pour frapper les portes et les murs, permettant aux troupes de passer facilement."
+      },
+      {
+        "name": "Dirigeable",
+        "family": "Engins de siège",
+        "health": 4000,
+        "damage_per_second": 45,
+        "training_time": "Aucun",
+        "image": "dirigeable.png",
+        "special_ability": "Inflige des dégâts aériens et attaque les bâtiments à distance.",
+        "description": "Le Dirigeable est un engin de siège qui permet de bombarder les ennemis à distance."
+      }
+    ]
+  }
+  
