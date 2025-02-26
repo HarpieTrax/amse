@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Categorie());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,7 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text("tp2_taquin")),
+        appBar: AppBar(title: Text("tp2_taquin"),
+        backgroundColor: Colors.blue),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -75,5 +76,178 @@ class _SliderExampleState extends State<SliderExample> {
         ),
       ],
     );
+  }
+}
+
+
+
+
+class Categorie extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+
+    return MaterialApp(
+      home: Scaffold(
+       appBar: AppBar(title: Text("Exercice",
+       style: TextStyle(
+        color: Colors.white
+       ),
+       ),
+       backgroundColor: Colors.blue
+       ),
+       body: Builder(
+        builder: (context){
+          return Column(
+      children: [
+
+        for (int j=0;j<7;j++)
+
+            ListTile(
+              
+              title: TextButton(
+                onPressed: (){
+                  if(j==5)
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => plateau(
+                                  ),
+                                ),
+                              );
+
+                  if (j==4)
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Tuile(
+                                  ),
+                                ),
+                              );
+                            },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0), // Padding
+                  textStyle: TextStyle(fontSize: 20),
+                        ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 10),
+                    Text("Exercice ${j}",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
+          );
+        }
+      ),
+      )
+    );
+  }
+}
+
+
+class Tuile extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Affichage d'une tuile de l'image"),
+      ),
+        body: SingleChildScrollView(
+          padding : const EdgeInsets.all(16.0),
+          child : 
+          Center (
+            child:
+          Column(
+          children: [
+            ClipRect(
+              child: Align(
+                alignment: Alignment.topCenter,
+                heightFactor: 0.4,
+                widthFactor: 0.4,
+                child: Image.network(
+                    'https://picsum.photos/512/512',
+
+                ),
+              ),
+            ),
+            Image.network(
+                'https://picsum.photos/512/512',
+              ),
+
+            ]
+          ),
+        ),
+      )
+    );
+  }
+}
+
+
+
+
+class plateau extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Génération d'un plateau"),
+      ),
+        body: 
+          GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            crossAxisCount: 3,
+            children: <Widget>[
+              for (int i=0;i<3;i++)
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Align(
+                alignment: Alignment(0.0,0.0),
+                heightFactor: 0.1,
+                widthFactor: 0.1,
+                child: Image.network(
+                    'https://picsum.photos/512/512',
+
+                ),
+              )
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Align(
+                alignment: Alignment(0.0,0.0),
+                heightFactor: 0.8,
+                widthFactor: 0.8,
+                child: Image.network(
+                    'https://picsum.photos/512/512',
+
+                ),
+              )
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: Align(
+                alignment: Alignment(0.0,0.0),
+                heightFactor: 0.6,
+                widthFactor: 0.6,
+                child: Image.network(
+                    'https://picsum.photos/512/512',
+
+                ),
+              )
+            ),
+            ]
+          ),
+        );
   }
 }
