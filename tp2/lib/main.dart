@@ -111,7 +111,7 @@ class Categorie extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => plateau(
+                      builder: (context) => Plateau(
                                   ),
                                 ),
                               );
@@ -167,9 +167,20 @@ class Tuile extends StatelessWidget {
           children: [
             ClipRect(
               child: Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment(0,0),
                 heightFactor: 0.4,
                 widthFactor: 0.4,
+                child: Image.network(
+                    'https://picsum.photos/512/512',
+
+                ),
+              ),
+            ),
+            ClipRect(
+              child: Align(
+                alignment: Alignment(0.5,0),
+                heightFactor: 0.1,
+                widthFactor: 0.1,
                 child: Image.network(
                     'https://picsum.photos/512/512',
 
@@ -189,65 +200,34 @@ class Tuile extends StatelessWidget {
 }
 
 
-
-
-class plateau extends StatelessWidget {
-
+class Plateau extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Génération d'un plateau"),
+        title: Text("Affichage d'une tuile de l'image"),
       ),
-        body: 
-          GridView.count(
-            primary: false,
-            padding: const EdgeInsets.all(20),
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            crossAxisCount: 3,
-            children: <Widget>[
-              for (int i=0;i<3;i++)
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: Alignment(0.0,0.0),
-                heightFactor: 0.1,
-                widthFactor: 0.1,
-                child: Image.network(
+      body: GridView.count(
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        crossAxisCount: 3,
+        children: [
+          for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+              ClipRect(
+                child: Align(
+                  alignment: Alignment((i - 1) * 2 / 3, (j - 1) * 2 / 3),
+                  heightFactor: 1 / 3,
+                  widthFactor: 1 / 3,
+                  child: Image.network(
                     'https://picsum.photos/512/512',
-
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              )
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: Alignment(0.0,0.0),
-                heightFactor: 0.8,
-                widthFactor: 0.8,
-                child: Image.network(
-                    'https://picsum.photos/512/512',
-
-                ),
-              )
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: Alignment(0.0,0.0),
-                heightFactor: 0.6,
-                widthFactor: 0.6,
-                child: Image.network(
-                    'https://picsum.photos/512/512',
-
-                ),
-              )
-            ),
-            ]
-          ),
-        );
+              ),
+        ],
+      ),
+    );
   }
 }
