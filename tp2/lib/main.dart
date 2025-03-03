@@ -203,6 +203,26 @@ class Tuile extends StatelessWidget {
 class Plateau extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    List image = <ClipRect>[];
+
+    for (int i=0;i<3;i++){
+      for (int j=0;j<3;j++){
+        image.add(
+          ClipRect(
+              child: Align(
+                alignment: Alignment(0.5,0),
+                heightFactor: 0.1,
+                widthFactor: 0.1,
+                child: Image.network(
+                    'https://picsum.photos/512/512',
+
+                ),
+              ),
+            ),
+        );
+      }
+    }
+    print(image[0]);
 
     return Scaffold(
       appBar: AppBar(
@@ -213,19 +233,8 @@ class Plateau extends StatelessWidget {
         crossAxisSpacing: 10,
         crossAxisCount: 3,
         children: [
-          for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
-              ClipRect(
-                child: Align(
-                  alignment: Alignment((i - 1) * 2 / 3, (j - 1) * 2 / 3),
-                  heightFactor: 1 / 3,
-                  widthFactor: 1 / 3,
-                  child: Image.network(
-                    'https://picsum.photos/512/512',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+          for (var photo in image)
+            photo
         ],
       ),
     );
