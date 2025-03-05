@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:typed_data';
@@ -646,10 +647,6 @@ class Tile {
   }
 }
 
-// ==============
-// Widgets
-// ==============
-
 class TileWidget extends StatelessWidget {
   final Tile tile;
 
@@ -772,7 +769,7 @@ class PositionedTilesState extends State<PositionedTiles> {
 class Tile2 {
   late ui.Image image;
   late bool isEmpty;
-  final int correctPosition; // Position correcte de la tuile
+  final int correctPosition;
 
   Tile2(this.image, {this.isEmpty = false, required this.correctPosition});
 }
@@ -883,17 +880,14 @@ class _TaquinState extends State<Taquin> {
         ui.Image tileImage =
             await recorder.endRecording().toImage(tileSize, tileSize);
 
-        // La position correcte de la tuile est sa position initiale dans la grille
         tiles.add(Tile2(tileImage, correctPosition: i * gridSize + j));
       }
     }
 
-    // Set an empty tile at a random position
     int emptyTileIndex = math.Random().nextInt(gridSize * gridSize);
     tiles[emptyTileIndex] = Tile2(tiles[emptyTileIndex].image,
         isEmpty: true, correctPosition: emptyTileIndex);
 
-    // Shuffle tiles while ensuring the puzzle is solvable
     _shuffleTiles(tiles, emptyTileIndex);
 
     setState(() {
@@ -905,14 +899,12 @@ class _TaquinState extends State<Taquin> {
   }
 
   void _shuffleTiles(List<Tile2> tiles, int emptyTileIndex) {
-    // Number of inversions must be even for the puzzle to be solvable
     int inversions = 0;
     do {
       tiles.shuffle();
       inversions = _countInversions(tiles);
     } while (inversions % 2 != 0);
 
-    // Ensure the empty tile is at the correct position
     if (tiles[emptyTileIndex].isEmpty == false) {
       for (int i = 0; i < tiles.length; i++) {
         if (tiles[i].isEmpty) {
@@ -945,7 +937,6 @@ class _TaquinState extends State<Taquin> {
     int rowCliquee = pos_cliquee ~/ gridSize;
     int colCliquee = pos_cliquee % gridSize;
 
-    // Only allow horizontal and vertical moves (no diagonals)
     return (rowVide == rowCliquee &&
             (colCliquee == colVide - 1 || colCliquee == colVide + 1)) ||
         (colVide == colCliquee &&
@@ -1008,7 +999,6 @@ class _TaquinState extends State<Taquin> {
 
   void _rejouer() {
     setState(() {
-      // Change the image URL to load a new random image
       imageUrl =
           'https://picsum.photos/512/512?random=${DateTime.now().millisecondsSinceEpoch}';
       _fullImage = null;
@@ -1035,7 +1025,7 @@ class _TaquinState extends State<Taquin> {
         child: Column(
           children: [
             Container(
-              height: screenHeight * 0.7, // Hauteur fixe pour la grille
+              height: screenHeight * 0.7,
               child: _fullImage == null || _tiles == null
                   ? Center(child: CircularProgressIndicator())
                   : GridView.builder(
