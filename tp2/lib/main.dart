@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:typed_data';
@@ -646,10 +647,6 @@ class Tile {
   }
 }
 
-// ==============
-// Widgets
-// ==============
-
 class TileWidget extends StatelessWidget {
   final Tile tile;
 
@@ -901,8 +898,8 @@ class _TaquinState extends State<Taquin> {
     do {
       tiles.shuffle();
       inversions = _countInversions(tiles);
-    } while (inversions % 2 != 0);
-
+    } while (inversions % 2 != 0 && inversions>0);
+    print(inversions);
     if (tiles[emptyTileIndex].isEmpty == false) {
       for (int i = 0; i < tiles.length; i++) {
         if (tiles[i].isEmpty) {
@@ -922,6 +919,7 @@ class _TaquinState extends State<Taquin> {
         if (!tiles[i].isEmpty &&
             !tiles[j].isEmpty &&
             tiles[i].correctPosition > tiles[j].correctPosition) {
+          print('le i est ${i}');
           inversions++;
         }
       }
